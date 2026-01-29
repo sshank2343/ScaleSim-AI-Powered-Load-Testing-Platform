@@ -8,7 +8,7 @@ function useSocket() {
 
   useEffect(() => {
     if (!socketInstance) {
-      socketInstance = io("/", {
+      socketInstance = io("http://localhost:5000", {
         transports: ["websocket"],
       });
     }

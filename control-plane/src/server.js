@@ -7,6 +7,7 @@ import { Server } from "socket.io";
 import connectDB from "./config/db.js";
 import { connectRedis } from "./config/redis.js";
 import apiRoutes from "./routes/api.js";
+import { initTelemetryService, startTelemetryListener } from "./services/telemetryService.js";
 
 dotenv.config();
 
@@ -20,6 +21,9 @@ const io = new Server(server, {
 });
 
 app.set("io", io);
+
+// Initialize telemetry service with socket.io instance
+initTelemetryService(io);
 
 app.use(cors());
 app.use(express.json());
@@ -40,6 +44,7 @@ const startServer = async () => {
   try {
     await connectDB();
     await connectRedis();
+    await startTelemetryListener();
 
     server.listen(PORT, () => {
       console.log(`Control Plane running on port ${PORT}`);
