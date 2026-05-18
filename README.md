@@ -10,7 +10,7 @@ ScaleSim is an intelligent, distributed load testing platform that automatically
 - **Real-Time Monitoring**: Live dashboard showing RPS, latency, error rates, and user load
 - **Intelligent Ramping**: Custom sequence (1→2→3→4→5→10→25→50→100→200...) with configurable step duration
 - **Breaking Point Detection**: Automatically stops when hitting error rate, latency thresholds, or max users
-- **AI Analysis**: Uses Google Gemini to analyze failures and suggest optimizations
+- **AI Analysis**: Uses OpenAI to analyze failures and suggest optimizations
 - **Docker-Native**: Full container orchestration with dynamic load engine spawning
 - **Persistent Results**: Stores all test runs in MongoDB for historical analysis
 
@@ -68,7 +68,7 @@ ScaleSim uses a microservices architecture with 6 core components:
    - Sample API endpoints for testing
    - Includes CPU-heavy, memory-leak, I/O-heavy routes
 
-5. **Analyst Agent** (Python + LangChain + Gemini)
+5. **Analyst Agent** (Python + LangChain + OpenAI)
    - AI-powered log analysis
    - Root cause identification
    - Performance metrics analysis
@@ -109,7 +109,7 @@ ScaleSim uses a microservices architecture with 6 core components:
 
 ### AI Agents
 - **LangChain 0.2.6** - Agent framework
-- **Google Gemini AI** - LLM provider
+- **OpenAI** - LLM provider
 - **Pandas** - Data analysis
 - **Watchdog** - File monitoring
 
@@ -153,7 +153,7 @@ ScaleSim uses a microservices architecture with 6 core components:
 - Docker Compose v2.x
 - MongoDB Atlas account (free tier)
 - Upstash Redis account (free tier)
-- Google Gemini API key
+- OpenAI API key
 
 ### 1. Clone Repository
 ```bash
@@ -176,8 +176,8 @@ PORT=5000
 
 **analyst-agent/.env:**
 ```env
-GEMINI_API_KEY=your-gemini-api-key
-GEMINI_MODEL=gemini-pro
+OPENAI_API_KEY=your-openai-api-key
+OPENAI_MODEL=gpt-4o-mini
 REDIS_HOST=your-upstash-host.upstash.io
 REDIS_PORT=6379
 REDIS_PASSWORD=your-redis-password
@@ -362,7 +362,7 @@ docker-compose down -v  # Also removes volumes
 
 ## 🤖 AI Agent Capabilities
 
-The Analyst Agent uses **Google Gemini AI** with **LangChain** to provide:
+The Analyst Agent uses **OpenAI** with **LangChain** to provide:
 
 ### 1. Root Cause Analysis
 - Analyzes log entries automatically
@@ -382,8 +382,8 @@ The Analyst Agent uses **Google Gemini AI** with **LangChain** to provide:
 
 **Technologies:**
 - LangChain 0.2.6 for agent orchestration
-- Custom `GeminiLLM` wrapper
-- Google Generative AI integration
+- Custom `OpenAILLM` wrapper
+- OpenAI API integration
 - Pandas for data analysis
 
 ---
@@ -484,7 +484,7 @@ ScaleSim/
 │   │   │   ├── log_watcher.py       # Log monitoring
 │   │   │   └── metrics_ingest.py    # Metrics collection
 │   │   ├── core/
-│   │   │   ├── llm.py               # Gemini LLM wrapper
+│   │   │   ├── llm.py               # OpenAI LLM wrapper
 │   │   │   └── config.py            # Configuration
 │   │   └── main.py                  # FastAPI server
 │   ├── Dockerfile
@@ -525,7 +525,7 @@ Built with:
 - Locust - Load testing framework
 - Socket.io - Real-time communication
 - Recharts - Data visualization
-- Google Gemini - AI analysis
+- OpenAI - AI analysis
 - LangChain - Agent framework
 
 ---
